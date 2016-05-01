@@ -12,5 +12,11 @@
 	<classpathentry kind="lib" path="E:/java_external/httpcomponents-client-4.5.1/lib/httpmime-4.5.1.jar"/>
 	<classpathentry kind="lib" path="E:/java_external/httpcomponents-client-4.5.1/lib/jna-4.1.0.jar"/>
 	<classpathentry kind="lib" path="E:/java_external/httpcomponents-client-4.5.1/lib/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="lib" path="E:/java_external/htmlparser1_6/lib/filterbuilder.jar"/>
+	<classpathentry kind="lib" path="E:/java_external/htmlparser1_6/lib/htmllexer.jar"/>
+	<classpathentry kind="lib" path="E:/java_external/htmlparser1_6/lib/htmlparser.jar"/>
+	<classpathentry kind="lib" path="E:/java_external/htmlparser1_6/lib/junit.jar"/>
+	<classpathentry kind="lib" path="E:/java_external/htmlparser1_6/lib/sax2.jar"/>
+	<classpathentry kind="lib" path="E:/java_external/htmlparser1_6/lib/thumbelina.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
