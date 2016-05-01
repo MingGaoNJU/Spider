@@ -27,7 +27,7 @@ public class Spider {
 		init(seeds);
 		
 		//BFS
-		while(!crawlQueue.visitQueueEmpty()&&crawlQueue.getVisitedNum()<1000){
+		while(!crawlQueue.visitQueueEmpty()&&crawlQueue.getVisitedNum()<100){
 			String url = crawlQueue.DewaitingQueue();
 			if(!url.equals("")){
 				downloader.RetriveWebPage(url);
@@ -46,7 +46,7 @@ public class Spider {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Spider spider = new Spider();
-		spider.crawl(new String[]{"http://www.sina.com"});
+		spider.crawl(new String[]{"http://www.nature.com"});
 		//filter
 		
 		//init

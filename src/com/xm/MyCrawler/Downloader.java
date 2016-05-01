@@ -25,12 +25,16 @@ public class Downloader {
 	/**
 	 * @param args
 	 */
+	private String tempFolder="E:\\temp\\";
+	private InputStream in = null;
+	private OutputStream out =null;
+	CloseableHttpResponse response=null;
+	
 	public void RetriveWebPage(String url){
 		
-		InputStream in = null;
-		OutputStream out =null;
 		
-		CloseableHttpResponse response=null;
+		
+		
 		//get method
 //		RequestConfig config =RequestConfig.custom().setConnectTimeout(1000).setSocketTimeout(1000).build();
 		CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -85,12 +89,13 @@ public class Downloader {
 					 in=en.getContent();
 					 byte[] bytes = new byte[1024];
 					 int size=0;
-					 String filepath="E:\\temp\\"+getFilename(url,response.getFirstHeader("Content-Type").getValue());
+					 String type = response.getFirstHeader("Content-Type").getValue();
+					 String filepath=getFilename(url,type);
 					 out=new FileOutputStream(new File(filepath)); 
 					 while((size =in.read(bytes))>0){
 						 out.write(bytes);
 //						 System.out.println("read");
-						 System.out.println(new String(bytes));
+//						 System.out.println(new String(bytes));
 					 }
 //					 System.out.println(EntityUtils.toString(en));
 					 break;
@@ -130,12 +135,32 @@ public class Downloader {
 		//delete protacle
 		String[] url_a = url.split("://");
 		url = url_a[1];
+		
+		String[] domain = url.split("/");
+		
+		//是否只有主机名
 		if(type.indexOf("html")!=-1){
-			name =url.replaceAll("[\\?/:*|<>\"'#$%@]","_")+".html";
+				//判断资源名里是否有html
+				if(domain[domain.length-1].endsWith(".html")){
+					name =tempFolder+url.replaceAll("[\\?/:*|<>\"'#$%@]","_");
+				}else{
+					name =tempFolder+url.replaceAll("[\\?/:*|<>\"'#$%@]","_")+".html";
+				}
+			
 			return name;
 		}
 		else{
-			name = url.replaceAll("[\\?/:*|<>\"'#$%@]","_")+"."+type.substring(type.lastIndexOf("/")+1);
+			//获得类型
+			String[] type_a = type.split(";");
+			type=type_a[0].split("/")[0];
+			//判断是否有文件后缀
+			if(domain[domain.length-1].endsWith("."+type)){
+				name = tempFolder+url.replaceAll("[\\?/:*|<>\"'#$%@]","_");
+			}
+			else{
+				name = tempFolder+url.replaceAll("[\\?/:*|<>\"'#$%@]","_")+"."+type;
+			}
+			
 			return name;
 		}
 		
@@ -148,6 +173,10 @@ public class Downloader {
 		// TODO Auto-generated method stub
 		Downloader d = new Downloader();
 		d.RetriveWebPage("http://www.baidu.com");
+		
+//		String s ="www.baidu.com";
+//		String[] s_a=s.split("/");
+//		System.out.println(s_a[1]);
 	}
 
 }
