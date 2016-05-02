@@ -12,6 +12,8 @@ public class MyLinkStringFilter extends LinkStringFilter {
 	}
 	
 	public boolean accept(String url){
+		String[] pattern_a = pattern.split("/");
+		pattern=pattern_a[0]+"/"+pattern_a[1]+"/"+pattern_a[2];
 		if(url.startsWith(pattern)){
 			return true;
 		}else{
@@ -24,6 +26,8 @@ public class MyLinkStringFilter extends LinkStringFilter {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		MyLinkStringFilter ml =new MyLinkStringFilter("http://www.nature.com/news");
+		System.out.println(ml.accept("http://www.nature.com/help"));
 	}
 	
 

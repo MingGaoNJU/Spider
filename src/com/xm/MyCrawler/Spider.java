@@ -27,15 +27,22 @@ public class Spider {
 		init(seeds);
 		
 		//BFS
-		while(!crawlQueue.visitQueueEmpty()&&crawlQueue.getVisitedNum()<100){
+		while(!crawlQueue.visitQueueEmpty()&&crawlQueue.getVisitedNum()<10000){
 			String url = crawlQueue.DewaitingQueue();
-			if(!url.equals("")){
+	 		if(!url.equals("")){
 				downloader.RetriveWebPage(url);
 				crawlQueue.UpdatevisitedQueue(url);
+				String encoding = downloader.getEncoding();
+				System.out.println("get: "+encoding);
+				if(encoding!=null){
+					htmlparser.setEncoding(encoding);
+				}
+				
 				
 				Set<String> links = htmlparser.parseLinks(url, filter) ; 
 				
 				for(String link :links){
+					System.out.println(link);
 					crawlQueue.EnwaitingQueue(link);
 				}
 			}
@@ -46,7 +53,7 @@ public class Spider {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Spider spider = new Spider();
-		spider.crawl(new String[]{"http://www.nature.com"});
+		spider.crawl(new String[]{"http://www.nature.com/nature"});
 		//filter
 		
 		//init

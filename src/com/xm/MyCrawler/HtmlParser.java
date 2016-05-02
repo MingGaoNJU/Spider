@@ -22,11 +22,25 @@ public class HtmlParser {
 	/**
 	 * @param args
 	 */
+	private String encoding=null;
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
 	public Set<String> parseLinks(String url,MyLinkStringFilter linkfilter){
 		Set<String> links = new HashSet<String>();
 		try {
 			Parser parser = new Parser(url);
+//			String encoding  = parser.getEncoding();
+//			System.out.println(encoding);
+
+//			System.out.println("seted: "+encoding);
 			parser.setEncoding("utf-8");
+			
 			NodeFilter frameFilter = new NodeFilter() {
 				
 				@Override
@@ -81,7 +95,7 @@ public class HtmlParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println(links.size());
 		return links;
 		
 	}
@@ -91,6 +105,7 @@ public class HtmlParser {
 		HtmlParser parser =new HtmlParser();
 		MyLinkStringFilter filter = new MyLinkStringFilter("http://www.baidu.com");
 		Set<String> links = parser.parseLinks("http://www.baidu.com", filter);
+		System.out.println(links.size());
 		for(String link :links){
 			System.out.println(link);
 		}

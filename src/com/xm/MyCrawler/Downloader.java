@@ -30,10 +30,16 @@ public class Downloader {
 	private OutputStream out =null;
 	CloseableHttpResponse response=null;
 	
+	private String encoding=null;
+	
+	public String getEncoding() {
+		return this.encoding;
+	}
+
 	public void RetriveWebPage(String url){
 		
 		
-		
+		this.encoding=null;
 		
 		//get method
 //		RequestConfig config =RequestConfig.custom().setConnectTimeout(1000).setSocketTimeout(1000).build();
@@ -47,7 +53,7 @@ public class Downloader {
 			 response = httpclient.execute(httprequest);
 			 //read status line
 			 StatusLine sl = response.getStatusLine();
-			 System.out.println(sl);
+			 System.out.println(url+": "+sl);
 			 //get status code and operate on it
 			 int StatusCode = sl.getStatusCode();
 			 switch(StatusCode){
@@ -89,11 +95,23 @@ public class Downloader {
 					 in=en.getContent();
 					 byte[] bytes = new byte[1024];
 					 int size=0;
+					 
+					 //update encoding
 					 String type = response.getFirstHeader("Content-Type").getValue();
+					 System.out.println("Content-Type="+type);
+					 String[] type_a =type.split(";");
+					 System.out.println("previous encoding: "+encoding);
+					 if(type_a.length==2){
+						 this.encoding=type_a[1].split("=")[1]; 
+					 }
+					 
+					 System.out.println("change encoding: "+encoding);
+					
+					 
 					 String filepath=getFilename(url,type);
 					 out=new FileOutputStream(new File(filepath)); 
 					 while((size =in.read(bytes))>0){
-						 out.write(bytes);
+						 out.write(bytes,0,size);
 //						 System.out.println("read");
 //						 System.out.println(new String(bytes));
 					 }
@@ -142,9 +160,9 @@ public class Downloader {
 		if(type.indexOf("html")!=-1){
 				//判断资源名里是否有html
 				if(domain[domain.length-1].endsWith(".html")){
-					name =tempFolder+url.replaceAll("[\\?/:*|<>\"'#$%@]","_");
+					name =tempFolder+url.replaceAll("[\\/:*|<>\"]","_");
 				}else{
-					name =tempFolder+url.replaceAll("[\\?/:*|<>\"'#$%@]","_")+".html";
+					name =tempFolder+url.replaceAll("[\\/:*|<>\"]","_")+".html";
 				}
 			
 			return name;
@@ -152,13 +170,13 @@ public class Downloader {
 		else{
 			//获得类型
 			String[] type_a = type.split(";");
-			type=type_a[0].split("/")[0];
+			type=type_a[0].split("/")[1];
 			//判断是否有文件后缀
 			if(domain[domain.length-1].endsWith("."+type)){
-				name = tempFolder+url.replaceAll("[\\?/:*|<>\"'#$%@]","_");
+				name = tempFolder+url.replaceAll("[\\/:*|<>\"]","_");
 			}
 			else{
-				name = tempFolder+url.replaceAll("[\\?/:*|<>\"'#$%@]","_")+"."+type;
+				name = tempFolder+url.replaceAll("[\\/:*|<>\"]","_")+"."+type;
 			}
 			
 			return name;
