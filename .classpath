@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="E:/java_external/htmlparser1_6/lib/junit.jar"/>
 	<classpathentry kind="lib" path="E:/java_external/htmlparser1_6/lib/sax2.jar"/>
 	<classpathentry kind="lib" path="E:/java_external/htmlparser1_6/lib/thumbelina.jar"/>
+	<classpathentry kind="lib" path="D:/Program Files/Oracle/Berkeley DB 12cR1 6.2.23/jar/db.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

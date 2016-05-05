@@ -171,8 +171,19 @@ public class Downloader {
 			//获得类型
 			String[] type_a = type.split(";");
 			type=type_a[0].split("/")[1];
+//			if(type.equals("vnd.ms-powerpoint")){
+//				type = "ppt";
+//			}
+			switch(type){
+			case "vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+				type="xlsx";
+				break;
+			case "vnd.ms-powerpoint":
+				type="pptx";
+				break;
+			}
 			//判断是否有文件后缀
-			if(domain[domain.length-1].endsWith("."+type)){
+			if(domain[domain.length-1].contains("."+type)){
 				name = tempFolder+url.replaceAll("[\\/:*|<>\"]","_");
 			}
 			else{

@@ -56,6 +56,8 @@ public class Spider {
 		spider.crawl(new String[]{"http://www.nature.com/nature"});
 		//filter
 		
+		
+		
 		//init
 		
 
