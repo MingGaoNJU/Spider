@@ -1,4 +1,4 @@
-package com.xm.MyCrawler;
+package com.xm.util;
 
 import java.io.Serializable;
 
