@@ -9,6 +9,11 @@ public class myBloomFilter {
 	 */
 	private static final int DEFAULT_SIZE = 2<<24; 
 	private static final int[] seeds = new int[] {7,11,13,31,37,61,73,79};
+	private int size=0;
+	
+	public int size(){
+		return size;
+	}
 	
 	//DNA generator
 	private Generator[] func = new Generator[seeds.length];
@@ -35,6 +40,7 @@ public class myBloomFilter {
 		for(Generator g : func){
 			bits.set(g.generate(UrlDomain));
 		}
+		size++;
 	}
 	
 	//check url existence

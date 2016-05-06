@@ -92,6 +92,18 @@ public class MyFrontier {
 		
 	}
 	
+	public boolean isEmpty(){
+		return DB.isEmpty();
+	}
+	
+	public boolean contains(Url url){
+		if(url==null){
+			return false;
+		}else{
+			return DB.containsKey(url.getUrlDomain());
+		}
+	}
+	
 	public void close(){
 		database.close();
 		javaCatalog.close();

@@ -3,6 +3,7 @@ package com.xm.MyCrawler;
 import java.util.Set;
 
 import com.xm.util.MyLinkStringFilter;
+import com.xm.util.Url;
 
 public class Spider {
 
@@ -14,7 +15,9 @@ public class Spider {
 	private HtmlParser htmlparser = new HtmlParser();
 	
 	private void init(String[] seeds){
-		for(String url:seeds){
+		for(String UrlDomain:seeds){
+			Url url = new Url();
+			url.setUrlDomain(UrlDomain);
 			crawlQueue.EnwaitingQueue(url);
 		}
 	}
@@ -28,10 +31,11 @@ public class Spider {
 		
 		//BFS
 		while(!crawlQueue.visitQueueEmpty()&&crawlQueue.getVisitedNum()<10000){
-			String url = crawlQueue.DewaitingQueue();
-	 		if(!url.equals("")){
-				downloader.RetriveWebPage(url);
-				crawlQueue.UpdatevisitedQueue(url);
+			Url url = crawlQueue.DewaitingQueue();
+			String UrlDomain =url.getUrlDomain();
+	 		if(url!=null&&!UrlDomain.equals("")){
+				downloader.RetriveWebPage(UrlDomain);
+				crawlQueue.UpdatevisitedQueue(UrlDomain);
 				String encoding = downloader.getEncoding();
 				System.out.println("get: "+encoding);
 				if(encoding!=null){
@@ -39,12 +43,15 @@ public class Spider {
 				}
 				
 				
-				Set<String> links = htmlparser.parseLinks(url, filter) ; 
+				Set<String> links = htmlparser.parseLinks(UrlDomain, filter) ; 
 				
 				for(String link :links){
 					System.out.println(link);
-					crawlQueue.EnwaitingQueue(link);
+					Url linkurl = new Url();
+					linkurl.setUrlDomain(link);
+					crawlQueue.EnwaitingQueue(linkurl);
 				}
+//				System.out.println(crawlQueue.visitQueueEmpty());
 			}
 		}
 		
