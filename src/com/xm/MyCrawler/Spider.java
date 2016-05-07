@@ -1,7 +1,6 @@
 package com.xm.MyCrawler;
 
 import java.util.Set;
-
 import com.xm.util.MyLinkStringFilter;
 import com.xm.util.Url;
 
@@ -46,7 +45,7 @@ public class Spider {
 				Set<String> links = htmlparser.parseLinks(UrlDomain, filter) ; 
 				
 				for(String link :links){
-					System.out.println(link);
+//					System.out.println(link);
 					Url linkurl = new Url();
 					linkurl.setUrlDomain(link);
 					crawlQueue.EnwaitingQueue(linkurl);

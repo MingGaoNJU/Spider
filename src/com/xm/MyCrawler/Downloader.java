@@ -160,9 +160,9 @@ public class Downloader {
 		if(type.indexOf("html")!=-1){
 				//判断资源名里是否有html
 				if(domain[domain.length-1].endsWith(".html")){
-					name =tempFolder+url.replaceAll("[\\/:*|<>\"]","_");
+					name =tempFolder+url.replaceAll("[\\/:*|<>?\"]","_");
 				}else{
-					name =tempFolder+url.replaceAll("[\\/:*|<>\"]","_")+".html";
+					name =tempFolder+url.replaceAll("[\\/:*|<>?\"]","_")+".html";
 				}
 			
 			return name;
